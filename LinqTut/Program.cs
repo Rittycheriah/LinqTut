@@ -10,20 +10,89 @@ namespace LinqTut
     {
         static void Main(string[] args)
         {
+            // students w/ scores for [0] > 90, no order
             IEnumerable<Student> studentQuery =
                 from student in students
                 where student.Scores[0] > 90
                 select student;
 
+            // student w/ scores > 90 & 3 > 80
             IEnumerable<Student> studentQuery2 =
                 from student in students
                 where student.Scores[0] > 90 && student.Scores[3] < 80
                 select student;
 
-            foreach (Student student in studentQuery2)
+            // student with scores > 90 & orderby implementation
+            IEnumerable<Student> studentQuery3 =
+                from student in students
+                where student.Scores[0] > 90
+                orderby student.Last ascending
+                select student;
+
+            // by orderby scores
+            IEnumerable<Student> studentQuery5 =
+                from student in students
+                where student.Scores[0] > 90
+                orderby student.Scores[0] descending
+                select student;
+
+            // studentQuery with grouping
+            var studentQuery5X =
+                from student in students
+                group student by student.Last[0];
+
+            // studentQuery with grouping by implicit Keys
+            var studentQuery5XX =
+                from student in students
+                group student by student.Last[0] into studentGroup
+                orderby studentGroup.Key
+                select studentGroup;
+
+            // using let 
+            var studentQuery6 =
+                from student in students
+                let totalScore = student.Scores[0] + student.Scores[1] +
+                    student.Scores[2] + student.Scores[3]
+                where totalScore / 4 < student.Scores[0]
+                select student.Last + " " + student.First;
+
+            // finding the average using method syntax query
+
+            var studentQuery7 =
+                from student in students
+                let totalScore = student.Scores[0] + student.Scores[1] +
+                    student.Scores[2] + student.Scores[3]
+                select totalScore;
+
+            double averageScore = studentQuery7.Average();
+            Console.WriteLine("Class average scores = {0}", averageScore);
+
+            var studentQuery8 =
+                from student in students
+                let x = student.Scores[0] + student.Scores[1] +
+                    student.Scores[2] + student.Scores[3]
+                where x > averageScore
+                select new { id = student.ID, score = x };
+
+            //foreach (var studentGroup in studentQuery5XX)
+            //{
+            //    Console.WriteLine(studentGroup.Key);
+            //    foreach (Student student in studentGroup)
+            //    {
+            //        Console.WriteLine("{0}, {1}, {2}", student.Last, student.First, student.Scores[0]);
+            //        Console.ReadLine();
+            //    }
+            //}
+
+            foreach (string s in studentQuery6)
             {
-                Console.WriteLine("{0}, {1}", student.Last, student.First);
+                Console.WriteLine(s);
                 Console.ReadLine();
+            }
+
+            foreach (var item in studentQuery8)
+            {
+                Console.WriteLine("Student ID: {0}, Score: {1}", item.id, item.score);
             }
         }
 
