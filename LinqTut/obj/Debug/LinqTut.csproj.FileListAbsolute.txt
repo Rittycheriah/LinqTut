@@ -1,1 +1,5 @@
 C:\Users\Rainu\Desktop\msdnLinq\LinqTut\LinqTut\bin\Debug\LinqTut.exe.config
+C:\Users\Rainu\Desktop\msdnLinq\LinqTut\LinqTut\bin\Debug\LinqTut.exe
+C:\Users\Rainu\Desktop\msdnLinq\LinqTut\LinqTut\bin\Debug\LinqTut.pdb
+C:\Users\Rainu\Desktop\msdnLinq\LinqTut\LinqTut\obj\Debug\LinqTut.exe
+C:\Users\Rainu\Desktop\msdnLinq\LinqTut\LinqTut\obj\Debug\LinqTut.pdb
